@@ -36,6 +36,3 @@ An **advanced, full-stack AI-driven code review system** built using the **(Expr
 4️⃣ AI returns structured feedback with improvement suggestions.
 
 5️⃣ User receives clean, readable, and actionable feedback.
-
----
-you find this project useful, please consider giving it a star to support the work!
