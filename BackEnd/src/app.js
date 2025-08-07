@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-  origin: 'https://code-reviewer-cfni.onrender.com',
+  origin: 'https://code-reviewer-frontend-3cmz.onrender.com',
   credentials: true
 }));
 
