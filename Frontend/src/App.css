@@ -1,204 +1,219 @@
-/* * {
-  margin: 0%;
-  padding: 0%;
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
-}
-
-main {
-  height: 100%;
-  width: 100%;
-  padding: 1.5rem;
-  display: flex;
-  gap: 1rem;
-}
-
-main .left,
-main .right {
-  height: 100%;
-  flex-basis: 50%;
-  border-radius: 0.7rem;
-}
-
-main .left {
-  background-color: #000000;
-  position: relative;
-}
-
-.left .code,
-.code pre,
-.code pre code {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  border-radius: 0.7rem;
-  background-color: #0c0c0c;
-}
-
-main .left .review {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: rgb(219, 219, 255);
-  color: #000000;
-  padding: 0.5rem 2rem;
-  font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 0.7rem;
-}
-
-
-main .right {
-  background-color: black;
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
-  overflow: auto;
-} */
-
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600&display=swap');
-
+/* Global reset and base setup */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
   font-family: 'Inter', sans-serif;
+  background-color: #0f1117;
+  color: #f1f5f9;
+  overflow-x: hidden;
 }
 
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
-  background-color: #0d1117;
-  color: #e6edf3;
-  overflow: hidden;
-}
-
+/* Main layout container */
 main {
-  height: 100%;
-  width: 100%;
-  padding: 1.5rem;
+  min-height: 100vh;
+  width: 100vw;
   display: flex;
-  gap: 1.2rem;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  flex-direction: row;
+  padding: 1rem;
+  gap: 1rem;
+  background: #0f1117;
 }
 
+/* Panel containers */
 main .left,
 main .right {
-  height: 100%;
   flex: 1;
+  background: #161b22;
   border-radius: 1rem;
-  overflow: hidden;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  background: rgba(22, 27, 34, 0.9);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
+  overflow: auto;
+  max-height: calc(100vh - 2rem);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 
-/* ✅ Required for .review button to position correctly */
-main .left {
-  position: relative;
-}
-
-main .left:hover,
-main .right:hover {
-  box-shadow: 0 0 0 1px #3b82f6, 0 10px 35px rgba(59, 130, 246, 0.15);
-}
-
+/* Code editor area */
 .code {
   flex: 1;
   background-color: #1e1e2f;
-  color: #d4d4d4;
-  padding: 1rem;
+  color: #e2e8f0;
   font-family: 'Fira Code', monospace;
   font-size: 1rem;
-  border-radius: 1rem;
-  overflow: auto;
-  white-space: pre-wrap;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  resize: none;
+  min-height: 250px;
+  outline: none;
   line-height: 1.6;
+  caret-color: #93c5fd;
+  overflow-y: auto;
+  white-space: pre-wrap;
 }
 
-/* ✅ Review Button (modern, stays in left panel) */
-main .left .review {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-  color: #ffffff;
-  padding: 0.5rem 2rem;
+/* Ensure cursor alignment and behavior */
+.code::selection {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+/* Language dropdown */
+select {
+  background: #1e293b;
+  color: #f1f5f9;
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  width: fit-content;
+}
+
+select option {
+  background-color: #1e293b;
+  color: #f1f5f9;
+}
+
+/* Buttons and button group */
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+button,
+.copy-btn {
+  background: #2563eb;
+  color: #f1f5f9;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
   font-weight: 600;
   cursor: pointer;
-  border-radius: 0.7rem;
-  border: none;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-  background-image: linear-gradient(135deg, #3b82f6, #6366f1);
+  transition: background 0.3s, transform 0.1s;
 }
 
-.left .review:hover {
-  background: linear-gradient(145deg, #818cf8, #6366f1);
-  transform: scale(1.05);
+button:hover,
+.copy-btn:hover {
+  background: #1d4ed8;
+  transform: scale(1.03);
 }
 
-/* Right Panel (AI Output) */
-main .right {
-  padding: 2rem;
+/* Review button right aligned */
+.review-btn {
+  margin-left: auto;
+}
+
+/* Output section */
+.right {
+  color: #f8fafc;
   font-size: 1rem;
-  color: #e2e8f0;
-  overflow: auto;
-  line-height: 1.7;
+  line-height: 1.75;
   white-space: pre-wrap;
-  word-break: break-word;
+  word-wrap: break-word;
+  overflow-y: auto;a
 }
 
-main .right code {
+.right code {
   background-color: #272c36;
-  color: #a3e635;
-  padding: 0.3rem 0.5rem;
-  border-radius: 5px;
+  color: #86efac;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
   font-family: 'Fira Code', monospace;
+  font-size: 1rem;
 }
 
-/* Scrollbar Styling */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 ::-webkit-scrollbar-thumb {
-  background: #3b3b3b;
+  background: #374151;
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #4b5563;
 }
 
-/* Responsive (Mobile) */
-@media (max-width: 768px) {
+/* Responsive layout */
+@media (max-width: 1024px) {
   main {
     flex-direction: column;
   }
 
-  .left,
-  .right {
-    flex-basis: 100%;
+  main .left,
+  main .right {
+    width: 100%;
+    height: auto;
   }
 
-  .left .review {
-    bottom: 1rem;
-    right: 1rem;
+  .code {
+    font-size: 0.95rem;
+    min-height: 180px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+
+  button,
+  .copy-btn,
+  select {
+    width: 100%;
+  }
+
+  .review-btn {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .right {
+    font-size: 1rem;
   }
 }
+
+@media (max-width: 480px) {
+  select {
+    font-size: 0.95rem;
+  }
+
+  .code {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .right {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+.editor-wrapper {
+  position: relative;
+}
+
+.review-btn {
+  position: absolute;
+  top: -2.2rem;
+  right: 0;
+  background-color: #4b6cb7;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.review-btn:hover {
+  background-color: #3b5998;
+}
+
