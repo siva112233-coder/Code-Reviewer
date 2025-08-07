@@ -48,7 +48,7 @@ function App() {
     const startTime = Date.now();
 
     try {
-      const response = await axios.post('http://localhost:3000/ai/get-review', { code, language });
+      const response = await axios.post('https://code-reviewer-cfni.onrender.com/ai/get-review', { code, language });
       setReview(response.data);
       setResponseTime(Date.now() - startTime);
     } catch (error) {
